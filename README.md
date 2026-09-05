@@ -18,23 +18,24 @@ Es un proyecto frontend liviano: **no tiene backend ni base de datos**.
 ```
 .
 ├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── img/
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+│   └── img/
 └── .gitignore
 ```
 
 - **`index.html`** — Markup de toda la landing: navbar, hero, Sobre Alma, Creaciones, Cómo pedir, Instagram, CTA final, footer y botones flotantes. Es donde se editan los textos y productos.
-- **`css/style.css`** — Estilos del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Incluye el navbar, la imagen de fondo del hero con parallax y los botones flotantes.
-- **`js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes y el parallax del hero.
-- **`img/`** — Imágenes del proyecto (fotos de tortas, tartas, pavlovas, imagen del hero, etc.).
+- **`static/css/style.css`** — Estilos del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Incluye el navbar, la imagen de fondo del hero con parallax y los botones flotantes.
+- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes y el parallax del hero.
+- **`static/img/`** — Imágenes del proyecto (fotos de tortas, tartas, pavlovas, imagen del hero, etc.).
 - **`.gitignore`** — Excluye archivos del sistema (`Thumbs.db`, `.DS_Store`).
 
 ## Configuración de WhatsApp
 
-El número de WhatsApp se configura en **una única constante** al inicio de `js/script.js`:
+El número de WhatsApp se configura en **una única constante** al inicio de `static/js/script.js`:
 
 ```js
 var WHATSAPP_PHONE = '+595000000000';
@@ -52,7 +53,7 @@ Los botones de cada creación en `index.html` incluyen el atributo `data-mensaje
 <a href="https://wa.me/YOUR_PHONE_NUMBER" class="creacion-cta" data-mensaje="Hola! Quiero consultar por la Torta Rosa.">Pedir esta torta</a>
 ```
 
-`js/script.js` construye el enlace de cada botón:
+`static/js/script.js` construye el enlace de cada botón:
 
 - Si tiene `data-mensaje`, abre WhatsApp con ese texto precargado: `https://wa.me/NUMERO?text=<mensaje>`.
 - Si no lo tiene, abre WhatsApp directo: `https://wa.me/NUMERO`.
@@ -61,9 +62,9 @@ Para cambiar o agregar un mensaje, editar el atributo `data-mensaje` del botón 
 
 ## Imágenes
 
-- Todas las imágenes se colocan en **`img/`**.
-- Se referencian desde `index.html` con rutas relativas (`img/nombre.jpg`).
-- Cada creación y el grid de Instagram usan las imágenes disponibles dentro de `img/`.
+- Todas las imágenes se colocan en **`static/img/`**.
+- Se referencian desde `index.html` con rutas relativas (`static/img/nombre.jpg`).
+- Cada creación y el grid de Instagram usan las imágenes disponibles dentro de `static/img/`.
 
 ## Desarrollo local
 
@@ -100,14 +101,14 @@ Al tratarse de una web estática, se puede publicar en cualquier servicio de hos
 El contenido es editable directamente:
 
 - **Textos y productos** → se modifican en `index.html` (títulos, descripciones, botones, mensajes de WhatsApp, textos provisionales, etc.).
-- **Imágenes** → se reemplazan o agregan en `img/`.
+- **Imágenes** → se reemplazan o agregan en `static/img/`.
 
 Algunas secciones contienen textos provisorios señalados con comentarios HTML (por ejemplo, la sección «Sobre Alma»), listos para reemplazar por contenido final.
 
 ## Buenas prácticas
 
-- **Actualizar el número de WhatsApp** solo desde `js/script.js` (constante `WHATSAPP_PHONE`).
+- **Actualizar el número de WhatsApp** solo desde `static/js/script.js` (constante `WHATSAPP_PHONE`).
 - Mantener las **imágenes optimizadas** (compresión y dimensiones razonables) para no afectar el rendimiento.
-- **Respetar la estructura de carpetas**: estilos en `css/`, scripts en `js/`, imágenes en `img/`.
+- **Respetar la estructura de carpetas**: estilos en `static/css/`, scripts en `static/js/`, imágenes en `static/img/`.
 - Mantener el proyecto **sin frameworks ni bundlers innecesarios**.
 - **Verificar el responsive** (desktop, tablet y móvil) antes de aplicar cambios de layout.
