@@ -1,0 +1,33 @@
+# Changelog
+
+Todas las modificaciones notables de este proyecto se documentan en este archivo.
+
+El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), y este proyecto se adhiere a [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/).
+
+## [1.0.0] - 2026-09-05
+
+### Added
+
+- feat: estructura de secciones (hero, alma pastel, creaciones, pausa visual, rellenos, cómo pedir, instagram, cta final, footer)
+- feat: navbar fijo con scroll suave y enlaces a Alma Pastel, Creaciones y Rellenos
+- feat: enlaces de WhatsApp por producto con mensaje precargado (`data-mensaje`)
+- feat: botón flotante "Consultar disponibilidad" y botón "Volver arriba"
+- feat: parallax del hero en todas las resoluciones
+- feat: sección Rellenos como grilla placeholder
+- feat: sección Instagram con grilla `@alma_pastel_`
+- feat: tipografías Playfair Display + Plus Jakarta Sans y paleta de variables `--ap-*`
+
+### Changed
+
+- refactor: número de WhatsApp centralizado en `js/script.js` (removidos `js/config.js` y `js/config.example.js`)
+- refactor: sección "Cómo pedir" reubicada arriba del footer
+- style: sombra en las cards de creaciones y efecto vidrio en los captions
+- style: hero rediseñado con fondo a pantalla completa y texto frontal
+
+### Docs
+
+- docs: agregado `README.md` y este `CHANGELOG.md`
+
+### Chore
+
+- chore: `.gitignore` inicial

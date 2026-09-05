@@ -1,0 +1,886 @@
+:root {
+    --ap-bg-marfil: #FAF7F2;
+    --ap-bg-crema: #F4EFEA;
+    --ap-bg-rosa-sutil: #EFE3DD;
+    --ap-text-chocolate: #2B1E19;
+    --ap-text-espresso: #4A3B35;
+    --ap-accent-caramelo: #C49A6C;
+    --ap-placeholder-bg: #EAE4DD;
+    --ap-placeholder-border: #DCD4CA;
+
+    --ap-font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --ap-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    --ap-navbar-height: 76px;
+}
+
+/* Base */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--ap-navbar-height);
+}
+
+body {
+    font-family: var(--ap-font-sans);
+    font-weight: 400;
+    color: var(--ap-text-espresso);
+    background-color: var(--ap-bg-marfil);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografía base */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--ap-font-serif);
+    color: var(--ap-text-chocolate);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+a {
+    color: var(--ap-accent-caramelo);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--ap-text-chocolate);
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgba(250, 247, 242, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 0.75rem 0;
+    z-index: 1030;
+}
+
+.navbar.scrolled {
+    border-bottom-color: var(--ap-placeholder-border);
+    box-shadow: 0 1px 8px rgba(43, 30, 25, 0.04);
+}
+
+.navbar-brand {
+    display: inline-flex;
+    text-decoration: none;
+    line-height: 1.1;
+}
+
+.brand-name {
+    font-family: var(--ap-font-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ap-text-chocolate);
+    letter-spacing: 0.01em;
+}
+
+.navbar-toggler {
+    border: none;
+    padding: 0.35rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%234A3B35' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 24px;
+    height: 24px;
+}
+
+.nav-link {
+    font-family: var(--ap-font-sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ap-text-espresso) !important;
+    letter-spacing: 0.02em;
+    padding: 0.5rem 1.1rem !important;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--ap-text-chocolate) !important;
+}
+
+/* Puntitos separadores entre nav links (solo desktop) */
+@media (min-width: 992px) {
+    .navbar-nav .nav-item {
+        position: relative;
+    }
+
+    .navbar-nav .nav-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -2px;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--ap-accent-caramelo);
+        opacity: 0.7;
+    }
+}
+
+/* Botón WhatsApp (navbar desktop) */
+.btn-whatsapp {
+    font-family: var(--ap-font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ap-bg-marfil);
+    background-color: var(--ap-accent-caramelo);
+    border: none;
+    border-radius: 100px;
+    padding: 0.55rem 1.4rem;
+    letter-spacing: 0.01em;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-whatsapp:hover {
+    background-color: var(--ap-text-chocolate);
+    color: var(--ap-bg-marfil);
+    transform: translateY(-1px);
+}
+
+/* Botón WhatsApp (navbar mobile) */
+.btn-whatsapp-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--ap-accent-caramelo);
+    color: var(--ap-bg-marfil);
+    transition: background-color 0.2s ease;
+}
+
+.btn-whatsapp-mobile:hover {
+    background-color: var(--ap-text-chocolate);
+    color: var(--ap-bg-marfil);
+}
+
+/* Ocultar el botón WhatsApp del navbar cuando aparece el botón flotante */
+.navbar-wa-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    pointer-events: none;
+}
+
+.btn-whatsapp.navbar-wa-hidden,
+.btn-whatsapp-mobile.navbar-wa-hidden {
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hero */
+#hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(var(--ap-navbar-height) + 4rem);
+    padding-bottom: 4rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(250, 247, 242, 0.55);
+    z-index: 1;
+}
+
+.hero-image {
+    position: relative;
+    width: 100%;
+    height: 120%;
+    top: -10%;
+    object-fit: cover;
+    display: block;
+    will-change: transform;
+    transform: translateY(0);
+}
+
+.hero-row {
+    width: 100%;
+    margin: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding-right: 3rem;
+    padding-bottom: 3rem;
+}
+
+.hero-eyebrow {
+    font-family: var(--ap-font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ap-accent-caramelo);
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ap-text-chocolate);
+    margin-bottom: 1.5rem;
+    max-width: 640px;
+}
+
+.hero-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ap-text-espresso);
+    margin-bottom: 2.25rem;
+    max-width: 440px;
+}
+
+.hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    align-items: center;
+}
+
+.btn-ghost {
+    font-family: var(--ap-font-sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ap-text-espresso);
+    background-color: transparent;
+    border: 1px solid var(--ap-placeholder-border);
+    border-radius: 100px;
+    padding: 0.55rem 1.6rem;
+    letter-spacing: 0.01em;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-ghost:hover {
+    border-color: var(--ap-text-espresso);
+    color: var(--ap-text-chocolate);
+    background-color: transparent;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto 4rem;
+}
+
+.section-header h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 1rem;
+}
+
+/* --- Creaciones --- */
+#creaciones {
+    padding: 6rem 0;
+    background-color: var(--ap-bg-marfil);
+}
+
+.creaciones-grid {
+    row-gap: 2.5rem;
+}
+
+.creacion-card {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 8px 24px rgba(43, 30, 25, 0.10);
+    border-radius: 12px;
+}
+
+.creacion-media {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--ap-placeholder-bg);
+    position: relative;
+}
+
+.creacion-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.creacion-media--tall,
+.creacion-media--standard {
+    aspect-ratio: 4 / 5;
+}
+
+.creacion-caption {
+    flex: 1;
+    background-color: rgba(250, 247, 242, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--ap-placeholder-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.4rem;
+    margin-top: 0.65rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.creacion-name {
+    font-family: var(--ap-font-serif);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--ap-text-chocolate);
+    margin: 0 0 0.4rem;
+}
+
+.creacion-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ap-text-espresso);
+    margin: 0;
+}
+
+.creacion-cta {
+    align-self: flex-start;
+    margin-top: 0.9rem;
+    font-family: var(--ap-font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ap-accent-caramelo);
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+}
+
+.creacion-cta::after {
+    content: '→';
+    margin-left: 0.35rem;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.creacion-cta:hover {
+    color: var(--ap-text-chocolate);
+}
+
+.creacion-cta:hover::after {
+    transform: translateX(3px);
+}
+
+/* Hover sutil solo en dispositivos con hover real (desktop) */
+@media (hover: hover) and (pointer: fine) {
+    .creacion-card:hover .creacion-media img {
+        transform: scale(1.03);
+    }
+}
+
+/* --- Sobre Alma --- */
+#sobre-alma {
+    padding: 6rem 0;
+    background-color: var(--ap-bg-marfil);
+    border-bottom: 1px solid var(--ap-placeholder-border);
+}
+
+.sobre-img-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--ap-placeholder-bg);
+    border: 1px solid var(--ap-placeholder-border);
+}
+
+/* Mientras no exista img/sobre-alma.jpg se muestra el fondo de placeholder sin romper el layout */
+.sobre-img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+}
+
+.sobre-content {
+    padding: 0 1rem;
+}
+
+@media (min-width: 992px) {
+    .sobre-content {
+        padding: 0 2rem 0 3.5rem;
+    }
+}
+
+.sobre-eyebrow {
+    font-family: var(--ap-font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ap-accent-caramelo);
+    margin-bottom: 1rem;
+}
+
+.sobre-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 1.5rem;
+}
+
+.sobre-text {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--ap-text-espresso);
+    margin-bottom: 1.25rem;
+    max-width: 560px;
+}
+
+/* --- Pausa Visual --- */
+#pausa-visual {
+    background-color: var(--ap-bg-rosa-sutil);
+    padding: 8rem 0;
+}
+
+.pausa-frase {
+    font-family: var(--ap-font-serif);
+    font-style: italic;
+    font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ap-text-chocolate);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* --- Rellenos (placeholder) --- */
+#rellenos {
+    background-color: var(--ap-bg-marfil);
+    padding: 6rem 0;
+}
+
+.rellenos-grid {
+    row-gap: 1.5rem;
+}
+
+.relleno-placeholder {
+    border-radius: 10px;
+    border: 1px dashed var(--ap-placeholder-border);
+    background-color: var(--ap-placeholder-bg);
+    min-height: 200px;
+}
+
+/* --- Cómo hacer tu pedido --- */
+#como-pedir {
+    background-color: var(--ap-bg-marfil);
+    padding: 6rem 0;
+}
+
+.como-pedir-grid {
+    row-gap: 2.5rem;
+}
+
+.paso {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem 1rem;
+}
+
+.paso-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ap-accent-caramelo);
+    margin-bottom: 1.25rem;
+}
+
+.paso-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.paso-text {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ap-text-espresso);
+    margin: 0 auto;
+    max-width: 300px;
+}
+
+/* --- Instagram --- */
+#instagram {
+    background-color: var(--ap-bg-crema);
+    padding: 5rem 0;
+}
+
+.instagram-link {
+    display: block;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1.75rem;
+}
+
+.ig-tile {
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--ap-placeholder-bg);
+    border: 1px solid var(--ap-placeholder-border);
+}
+
+.ig-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .instagram-link:hover .ig-tile img {
+        transform: scale(1.05);
+    }
+}
+
+.instagram-handle {
+    font-family: var(--ap-font-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ap-text-chocolate);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.instagram-link:hover .instagram-handle {
+    color: var(--ap-accent-caramelo);
+}
+
+/* --- CTA Final --- */
+#cta-final {
+    background-color: var(--ap-bg-marfil);
+    padding: 8rem 0;
+}
+
+.cta-final-content {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.cta-final-content h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    margin-bottom: 1.25rem;
+}
+
+.cta-final-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ap-text-espresso);
+    margin-bottom: 2rem;
+}
+
+.btn-cta-final {
+    font-size: 0.95rem;
+    padding: 0.75rem 2rem;
+}
+
+/* --- Botón WhatsApp flotante --- */
+.btn-whatsapp-flotante {
+    position: fixed;
+    left: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 1040;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--ap-font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ap-bg-marfil);
+    background-color: var(--ap-accent-caramelo);
+    border-radius: 100px;
+    padding: 0.7rem 1.1rem;
+    box-shadow: 0 2px 12px rgba(43, 30, 25, 0.18);
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.2s ease;
+}
+
+.btn-whatsapp-flotante.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .btn-whatsapp-flotante:hover {
+        background-color: var(--ap-text-chocolate);
+        color: var(--ap-bg-marfil);
+        transform: translateY(-1px);
+    }
+}
+
+/* --- Botón volver arriba --- */
+.btn-top {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 1040;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--ap-accent-caramelo);
+    color: var(--ap-bg-marfil);
+    box-shadow: 0 2px 10px rgba(43, 30, 25, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.2s ease;
+}
+
+.btn-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .btn-top:hover {
+        background-color: var(--ap-text-chocolate);
+    }
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--ap-bg-crema);
+    padding: 3rem 0;
+}
+
+.footer-brand {
+    font-family: var(--ap-font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ap-text-chocolate);
+    margin-bottom: 0.25rem;
+}
+
+.footer-location {
+    font-size: 0.82rem;
+    color: var(--ap-text-espresso);
+    opacity: 0.7;
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    font-size: 0.85rem;
+}
+
+.footer-links a {
+    color: var(--ap-accent-caramelo);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--ap-text-chocolate);
+}
+
+.footer-sep {
+    color: var(--ap-placeholder-border);
+    margin: 0 0.6rem;
+}
+
+/* Responsive */
+
+/* Tablets */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: rgba(250, 247, 242, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 1.25rem;
+        margin-top: 0.75rem;
+        border-radius: 8px;
+    }
+
+    .nav-link {
+        padding: 0.65rem 0 !important;
+    }
+
+    #hero {
+        padding-top: calc(var(--ap-navbar-height) + 2rem);
+        padding-bottom: 3rem;
+    }
+
+    .hero-content {
+        padding-right: 0.5rem;
+        text-align: center;
+        padding-bottom: 2.5rem;
+    }
+
+    .hero-text {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-cta {
+        justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+    :root {
+        --ap-navbar-height: 64px;
+    }
+
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .brand-name {
+        font-size: 1.15rem;
+    }
+
+    .btn-whatsapp-mobile {
+        width: 36px;
+        height: 36px;
+    }
+
+    .btn-whatsapp-mobile svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    #hero {
+        padding-top: calc(var(--ap-navbar-height) + 1.5rem);
+        padding-bottom: 2rem;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.68rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+        font-size: 1.85rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero-text {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 1rem;
+    }
+
+    .hero-cta .btn {
+        text-align: center;
+        width: 100%;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    #creaciones {
+        padding: 3.5rem 0;
+    }
+
+    .creaciones-grid {
+        row-gap: 2rem;
+    }
+
+    .creacion-caption {
+        margin-top: 0.5rem;
+        padding: 1rem 1.15rem;
+    }
+
+    #pausa-visual {
+        padding: 4.5rem 0;
+    }
+
+    #sobre-alma {
+        padding: 3.5rem 0;
+    }
+
+    .sobre-img-wrapper {
+        margin-bottom: 2rem;
+    }
+
+    .sobre-content {
+        padding: 0 0.5rem;
+        text-align: center;
+    }
+
+    .sobre-text {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #instagram {
+        padding: 3.5rem 0;
+    }
+
+    .instagram-grid {
+        gap: 0.4rem;
+    }
+
+    .btn-whatsapp-flotante {
+        left: 1rem;
+        bottom: 1rem;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    #como-pedir {
+        padding: 3.5rem 0;
+    }
+
+    .paso {
+        padding: 0.5rem 0;
+    }
+
+    #cta-final {
+        padding: 4.5rem 0;
+    }
+}
