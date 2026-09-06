@@ -4,6 +4,12 @@ Todas las modificaciones notables de este proyecto se documentan en este archivo
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), y este proyecto se adhiere a [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/).
 
+## [1.1.1] - 2026-09-06
+
+### Changed
+
+- style: captions de Creaciones y Rellenos como cajitas separadas debajo de cada card, con borde, radio y hover sutil (borde en rosa y sombra leve, solo en dispositivos con hover real)
+
 ## [1.1.0] - 2026-09-06
 
 ### Added
