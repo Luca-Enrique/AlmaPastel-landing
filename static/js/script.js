@@ -125,3 +125,34 @@ var WHATSAPP_PHONE = '+5493436467940';
     window.addEventListener('resize', update, { passive: true });
     update();
 })();
+
+// Reveal on scroll: agrega .is-visible cuando el elemento entra en viewport
+(function initScrollReveal() {
+    var items = document.querySelectorAll('.reveal');
+    if (!items.length) return;
+
+    // Fallback: si no hay IntersectionObserver, mostrar todo
+    if (!('IntersectionObserver' in window)) {
+        items.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+    }
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        items.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    items.forEach(function(el) { observer.observe(el); });
+})();

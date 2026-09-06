@@ -2,9 +2,9 @@
     --ap-bg-marfil: #FAF7F2;
     --ap-bg-crema: #F4EFEA;
     --ap-bg-rosa-sutil: #EFE3DD;
-    --ap-text-chocolate: #2B1E19;
+    --ap-text-chocolate: #5A3018;
     --ap-text-espresso: #4A3B35;
-    --ap-accent-caramelo: #C49A6C;
+    --ap-accent-rosa: #D08081;
     --ap-placeholder-bg: #EAE4DD;
     --ap-placeholder-border: #DCD4CA;
 
@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -65,8 +65,6 @@ a:hover {
 }
 
 .navbar-brand {
-    display: inline-flex;
-    text-decoration: none;
     line-height: 1.1;
 }
 
@@ -122,7 +120,7 @@ a:hover {
         width: 4px;
         height: 4px;
         border-radius: 50%;
-        background-color: var(--ap-accent-caramelo);
+        background-color: var(--ap-accent-rosa);
         opacity: 0.7;
     }
 }
@@ -133,9 +131,8 @@ a:hover {
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--ap-bg-marfil);
-    background-color: var(--ap-accent-caramelo);
+    background-color: var(--ap-accent-rosa);
     border: none;
-    border-radius: 100px;
     padding: 0.55rem 1.4rem;
     letter-spacing: 0.01em;
     transition: background-color 0.2s ease, transform 0.15s ease;
@@ -154,8 +151,7 @@ a:hover {
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: var(--ap-accent-caramelo);
+    background-color: var(--ap-accent-rosa);
     color: var(--ap-bg-marfil);
     transition: background-color 0.2s ease;
 }
@@ -206,18 +202,10 @@ a:hover {
 
 .hero-image {
     position: relative;
-    width: 100%;
     height: 120%;
     top: -10%;
-    object-fit: cover;
-    display: block;
     will-change: transform;
     transform: translateY(0);
-}
-
-.hero-row {
-    width: 100%;
-    margin: 0;
 }
 
 .hero-content {
@@ -230,10 +218,8 @@ a:hover {
 .hero-eyebrow {
     font-family: var(--ap-font-sans);
     font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
     margin-bottom: 1.5rem;
 }
 
@@ -254,6 +240,11 @@ a:hover {
     max-width: 440px;
 }
 
+.hero-text i {
+    margin-right: 0.12em;
+    font-style: italic;
+}
+
 .hero-cta {
     display: flex;
     flex-wrap: wrap;
@@ -266,9 +257,7 @@ a:hover {
     font-size: 0.88rem;
     font-weight: 500;
     color: var(--ap-text-espresso);
-    background-color: transparent;
     border: 1px solid var(--ap-placeholder-border);
-    border-radius: 100px;
     padding: 0.55rem 1.6rem;
     letter-spacing: 0.01em;
     transition: border-color 0.2s ease, color 0.2s ease;
@@ -281,7 +270,6 @@ a:hover {
 }
 
 .section-header {
-    text-align: center;
     max-width: 540px;
     margin: 0 auto 4rem;
 }
@@ -303,26 +291,18 @@ a:hover {
 
 .creacion-card {
     max-width: 480px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
     box-shadow: 0 8px 24px rgba(43, 30, 25, 0.10);
     border-radius: 12px;
 }
 
 .creacion-media {
-    border-radius: 8px;
+    border-radius: 0;
     overflow: hidden;
     background-color: var(--ap-placeholder-bg);
     position: relative;
 }
 
 .creacion-media img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
     transition: transform 0.5s ease;
 }
 
@@ -336,19 +316,13 @@ a:hover {
     background-color: rgba(250, 247, 242, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--ap-placeholder-border);
-    border-radius: 10px;
+    border-radius: 0;
     padding: 1.25rem 1.4rem;
-    margin-top: 0.65rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .creacion-name {
     font-family: var(--ap-font-serif);
     font-size: 1.12rem;
-    font-weight: 600;
     color: var(--ap-text-chocolate);
     margin: 0 0 0.4rem;
 }
@@ -361,12 +335,11 @@ a:hover {
 }
 
 .creacion-cta {
-    align-self: flex-start;
     margin-top: 0.9rem;
     font-family: var(--ap-font-sans);
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
     letter-spacing: 0.02em;
     transition: color 0.2s ease;
 }
@@ -388,6 +361,15 @@ a:hover {
 
 /* Hover sutil solo en dispositivos con hover real (desktop) */
 @media (hover: hover) and (pointer: fine) {
+    .creacion-card {
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .creacion-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(43, 30, 25, 0.16);
+    }
+
     .creacion-card:hover .creacion-media img {
         transform: scale(1.03);
     }
@@ -405,14 +387,12 @@ a:hover {
     overflow: hidden;
     background-color: var(--ap-placeholder-bg);
     border: 1px solid var(--ap-placeholder-border);
+    box-shadow: 0 8px 24px rgba(46, 26, 15, 0.12);
 }
 
 /* Mientras no exista img/sobre-alma.jpg se muestra el fondo de placeholder sin romper el layout */
 .sobre-img {
-    width: 100%;
     aspect-ratio: 4 / 5;
-    object-fit: cover;
-    display: block;
 }
 
 .sobre-content {
@@ -428,10 +408,8 @@ a:hover {
 .sobre-eyebrow {
     font-family: var(--ap-font-sans);
     font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
     margin-bottom: 1rem;
 }
 
@@ -448,6 +426,11 @@ a:hover {
     max-width: 560px;
 }
 
+.sobre-text i {
+    margin-right: 0.12em;
+    font-style: italic;
+}
+
 /* --- Pausa Visual --- */
 #pausa-visual {
     background-color: var(--ap-bg-rosa-sutil);
@@ -456,14 +439,10 @@ a:hover {
 
 .pausa-frase {
     font-family: var(--ap-font-serif);
-    font-style: italic;
     font-size: clamp(1.7rem, 3.5vw, 2.3rem);
-    font-weight: 500;
     line-height: 1.35;
     color: var(--ap-text-chocolate);
-    text-align: center;
     max-width: 720px;
-    margin: 0 auto;
 }
 
 /* --- Rellenos (placeholder) --- */
@@ -476,37 +455,60 @@ a:hover {
     row-gap: 1.5rem;
 }
 
-.relleno-placeholder {
-    border-radius: 10px;
-    border: 1px dashed var(--ap-placeholder-border);
-    background-color: var(--ap-placeholder-bg);
-    min-height: 200px;
+.relleno-card {
+    max-width: 480px;
+    border-radius: 12px;
+    background-color: var(--ap-bg-marfil);
+    box-shadow: 0 8px 24px rgba(43, 30, 25, 0.10);
+}
+
+.relleno-media {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.relleno-media img {
+    transition: transform 0.5s ease;
+}
+
+/* Hover sutil solo en dispositivos con hover real (desktop) */
+@media (hover: hover) and (pointer: fine) {
+    .relleno-card {
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .relleno-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(43, 30, 25, 0.16);
+    }
+
+    .relleno-card:hover .relleno-media img {
+        transform: scale(1.03);
+    }
+}
+
+.relleno-caption {
+    padding: 1rem 1.25rem;
+}
+
+.relleno-name {
+    font-family: var(--ap-font-serif);
+    font-size: 1.05rem;
+    color: var(--ap-text-chocolate);
 }
 
 /* --- Cómo hacer tu pedido --- */
 #como-pedir {
     background-color: var(--ap-bg-marfil);
-    padding: 6rem 0;
+    padding: 0 0 6rem;
 }
 
 .como-pedir-grid {
     row-gap: 2.5rem;
 }
 
-.paso {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    padding: 0.5rem 1rem;
-}
-
 .paso-icono {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
     margin-bottom: 1.25rem;
 }
 
@@ -519,7 +521,6 @@ a:hover {
     font-size: 0.92rem;
     line-height: 1.6;
     color: var(--ap-text-espresso);
-    margin: 0 auto;
     max-width: 300px;
 }
 
@@ -530,11 +531,7 @@ a:hover {
 }
 
 .instagram-link {
-    display: block;
     max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-    text-decoration: none;
 }
 
 .instagram-grid {
@@ -553,10 +550,6 @@ a:hover {
 }
 
 .ig-tile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
     transition: transform 0.5s ease;
 }
 
@@ -571,24 +564,21 @@ a:hover {
     font-size: 1.35rem;
     font-weight: 600;
     color: var(--ap-text-chocolate);
-    text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .instagram-link:hover .instagram-handle {
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
 }
 
 /* --- CTA Final --- */
 #cta-final {
     background-color: var(--ap-bg-marfil);
-    padding: 8rem 0;
+    padding: 6rem 0;
 }
 
 .cta-final-content {
-    text-align: center;
     max-width: 560px;
-    margin: 0 auto;
 }
 
 .cta-final-content h2 {
@@ -614,18 +604,13 @@ a:hover {
     left: 1.25rem;
     bottom: 1.25rem;
     z-index: 1040;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
     font-family: var(--ap-font-sans);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--ap-bg-marfil);
-    background-color: var(--ap-accent-caramelo);
-    border-radius: 100px;
+    background-color: var(--ap-accent-rosa);
     padding: 0.7rem 1.1rem;
     box-shadow: 0 2px 12px rgba(43, 30, 25, 0.18);
-    text-decoration: none;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
@@ -661,7 +646,7 @@ a:hover {
     height: 48px;
     border: none;
     border-radius: 50%;
-    background-color: var(--ap-accent-caramelo);
+    background-color: var(--ap-accent-rosa);
     color: var(--ap-bg-marfil);
     box-shadow: 0 2px 10px rgba(43, 30, 25, 0.12);
     opacity: 0;
@@ -687,7 +672,6 @@ a:hover {
 /* Footer */
 .site-footer {
     background-color: var(--ap-bg-crema);
-    padding: 3rem 0;
 }
 
 .footer-brand {
@@ -710,7 +694,7 @@ a:hover {
 }
 
 .footer-links a {
-    color: var(--ap-accent-caramelo);
+    color: var(--ap-accent-rosa);
     font-weight: 500;
     text-decoration: none;
     transition: color 0.2s ease;
@@ -831,7 +815,6 @@ a:hover {
     }
 
     .creacion-caption {
-        margin-top: 0.5rem;
         padding: 1rem 1.15rem;
     }
 
@@ -873,14 +856,85 @@ a:hover {
     }
 
     #como-pedir {
-        padding: 3.5rem 0;
+        padding: 3rem 0;
     }
 
-    .paso {
-        padding: 0.5rem 0;
+#cta-final {
+        padding: 4rem 0;
+    }
+}
+
+/* --- Animaciones: reveal on scroll --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal[data-delay="1"] {
+    transition-delay: 0.08s;
+}
+
+.reveal[data-delay="2"] {
+    transition-delay: 0.16s;
+}
+
+.reveal[data-delay="3"] {
+    transition-delay: 0.24s;
+}
+
+/* --- Animaciones: entrada del hero (una sola vez, al cargar) --- */
+@keyframes hero-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.hero-eyebrow,
+.hero-title,
+.hero-text,
+.hero-cta {
+    animation: hero-entrada 0.7s ease both;
+}
+
+.hero-eyebrow {
+    animation-delay: 0.1s;
+}
+
+.hero-title {
+    animation-delay: 0.25s;
+}
+
+.hero-text {
+    animation-delay: 0.4s;
+}
+
+.hero-cta {
+    animation-delay: 0.55s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 
-    #cta-final {
-        padding: 4.5rem 0;
+    .hero-eyebrow,
+    .hero-title,
+    .hero-text,
+    .hero-cta {
+        animation: none;
     }
 }
