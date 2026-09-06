@@ -86,14 +86,15 @@ y abrir `http://localhost:8000` en el navegador. También funciona con la extens
 
 ## Deployment
 
-Se publica en **Netlify** conectado al repositorio de GitHub.
+Se publica en **Vercel** conectado al repositorio de GitHub.
 
 1. Subir el proyecto a GitHub en la rama `main`.
-2. En Netlify: **Add new site → Import an existing project → GitHub** y seleccionar el repositorio `AlmaPastel-landing`.
-3. Configuración de build:
-   - **Build command**: *(vacío)* (sitio 100% estático)
-   - **Publish directory**: `.` (la raíz del repo, donde está `index.html`)
-4. Cada push a `main` publica automáticamente; los pull requests generan previews.
+2. En Vercel: **Add New → Project** y seleccionar el repositorio `AlmaPastel-landing`.
+3. Configuración del proyecto:
+   - **Framework Preset**: *Other*
+   - **Build Command**: *(vacío)* (sitio 100% estático)
+   - **Output Directory**: `.` (la raíz del repo, donde está `index.html`)
+4. Cada push a `main` genera un deployment de producción automático; los pull requests generan previews.
 
 > El número de WhatsApp se configura en `static/js/script.js`; no se necesitan variables de entorno.
 

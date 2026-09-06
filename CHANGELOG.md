@@ -25,7 +25,7 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), 
 
 ### Docs
 
-- docs: actualizado `README.md` (WebP, animaciones, utilidades Bootstrap, deploy en Netlify)
+- docs: actualizado `README.md` (WebP, animaciones, utilidades Bootstrap, deploy en Vercel)
 
 ## [1.0.1] - 2026-09-05
 
