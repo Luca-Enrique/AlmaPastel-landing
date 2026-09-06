@@ -28,9 +28,9 @@ Es un proyecto frontend liviano: **no tiene backend ni base de datos**.
 ```
 
 - **`index.html`** — Markup de toda la landing: navbar, hero, Sobre Alma, Creaciones, Cómo pedir, Instagram, CTA final, footer y botones flotantes. Es donde se editan los textos y productos.
-- **`static/css/style.css`** — Estilos del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Incluye el navbar, la imagen de fondo del hero con parallax y los botones flotantes.
-- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes y el parallax del hero.
-- **`static/img/`** — Imágenes del proyecto (fotos de tortas, tartas, pavlovas, imagen del hero, etc.).
+- **`static/css/style.css`** — Estilos propios del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Se combinan con las utilidades de Bootstrap (`text-center`, `d-flex`, `mx-auto`, etc.) para gran parte del layout. Incluye el navbar, la imagen de fondo del hero con parallax y los botones flotantes.
+- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes, el parallax del hero y las animaciones reveal-on-scroll (`initScrollReveal`).
+- **`static/img/`** — Imágenes del proyecto en **WebP** (fotos de tortas, tartas, pavlovas, rellenos, hero, favicon, etc.), con prefijos por uso (`creacion-*`, `relleno-*`, `grilla-*`).
 - **`.gitignore`** — Excluye archivos del sistema (`Thumbs.db`, `.DS_Store`).
 
 ## Configuración de WhatsApp
@@ -62,9 +62,10 @@ Para cambiar o agregar un mensaje, editar el atributo `data-mensaje` del botón 
 
 ## Imágenes
 
-- Todas las imágenes se colocan en **`static/img/`**.
-- Se referencian desde `index.html` con rutas relativas (`static/img/nombre.jpg`).
-- Cada creación y el grid de Instagram usan las imágenes disponibles dentro de `static/img/`.
+- Todas las imágenes se colocan en **`static/img/`** en formato **WebP** (`*.webp`), salvo `sobre-alma.jpg` y `favicon.png`.
+- Se referencian desde `index.html` con rutas relativas (`static/img/creacion-vintage.webp`).
+- Los nombres usan prefijos por contexto: `creacion-*` (cards de Creaciones), `relleno-*` (cards de Rellenos), `grilla-*` (grid de Instagram).
+- Se recomienda mantener las imágenes **optimizadas** (compresión y dimensiones razonables) para no afectar el rendimiento.
 
 ## Desarrollo local
 
@@ -85,25 +86,33 @@ y abrir `http://localhost:8000` en el navegador. También funciona con la extens
 
 ## Deployment
 
-Al tratarse de una web estática, se puede publicar en cualquier servicio de hosting estático habitual, por ejemplo: **GitHub Pages**, **Netlify** o **Vercel**.
+Se publica en **Netlify** conectado al repositorio de GitHub.
 
-> Nota: este repositorio no indica una plataforma de despliegue concreta. Sólo se mencionan opciones posibles.
+1. Subir el proyecto a GitHub en la rama `main`.
+2. En Netlify: **Add new site → Import an existing project → GitHub** y seleccionar el repositorio `AlmaPastel-landing`.
+3. Configuración de build:
+   - **Build command**: *(vacío)* (sitio 100% estático)
+   - **Publish directory**: `.` (la raíz del repo, donde está `index.html`)
+4. Cada push a `main` publica automáticamente; los pull requests generan previews.
+
+> El número de WhatsApp se configura en `static/js/script.js`; no se necesitan variables de entorno.
 
 ## Diseño
 
 - Diseño **editorial gastronómico**, con una estética **artesanal, cálida y minimalista**.
 - Enfoque **mobile-first** y **responsive** (desktop, tablet y móvil).
-- **Paleta de colores** definida mediante variables CSS (`--ap-*`): marfil, crema, rosa sutil, chocolate, espresso y caramelo.
+- **Paleta de colores** definida mediante variables CSS (`--ap-*`): marfil, crema, rosa sutil, chocolate, espresso y rosa (`--ap-accent-rosa`).
 - **Tipografías** (vía Google Fonts): **Playfair Display** para títulos y **Plus Jakarta Sans** para el texto.
+- **Animaciones**: reveal-on-scroll de secciones (IntersectionObserver, con soporte para `prefers-reduced-motion`) y entrada animada del hero al cargar.
 
 ## Contenido
 
 El contenido es editable directamente:
 
-- **Textos y productos** → se modifican en `index.html` (títulos, descripciones, botones, mensajes de WhatsApp, textos provisionales, etc.).
-- **Imágenes** → se reemplazan o agregan en `static/img/`.
+- **Textos y productos** → se modifican en `index.html` (títulos, descripciones, botones, mensajes de WhatsApp, etc.).
+- **Imágenes** → se reemplazan o agregan en `static/img/` (WebP, con prefijos `creacion-*`, `relleno-*`, `grilla-*`).
 
-Algunas secciones contienen textos provisorios señalados con comentarios HTML (por ejemplo, la sección «Sobre Alma»), listos para reemplazar por contenido final.
+Algunas secciones contienen textos provisorios señalados con comentarios HTML, listos para reemplazar por contenido final.
 
 ## Buenas prácticas
 
