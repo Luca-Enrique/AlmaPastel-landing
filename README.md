@@ -2,6 +2,8 @@
 
 Landing page estática para una pastelería artesanal. Presenta las creaciones de la marca y dirige a los visitantes hacia WhatsApp para realizar consultas o pedidos.
 
+La página está publicada en [alma-pastel](https://alma-pastel.vercel.app)
+
 Es un proyecto frontend liviano: **no tiene backend ni base de datos**.
 
 ## Tecnologías
