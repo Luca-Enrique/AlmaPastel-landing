@@ -289,7 +289,13 @@ a:hover {
     row-gap: 2.5rem;
 }
 
+.creaciones-grid > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
 .creacion-card {
+    width: 100%;
     max-width: 480px;
     box-shadow: 0 8px 24px rgba(43, 30, 25, 0.10);
     border-radius: 12px;
@@ -312,6 +318,8 @@ a:hover {
 }
 
 .creacion-caption {
+    flex-grow: 1;
+    width: 100%;
     max-width: 480px;
     margin: 1rem auto 0;
     background-color: rgba(250, 247, 242, 0.92);
