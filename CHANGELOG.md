@@ -4,6 +4,30 @@ Todas las modificaciones notables de este proyecto se documentan en este archivo
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), y este proyecto se adhiere a [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/).
 
+## [1.2.0] - 2026-09-20
+
+### Added
+
+- feat: páginas de categorías Tortas, Tartas y Postres (`tortas.html`, `tartas.html`, `postres.html`) con sus productos y mensajes de WhatsApp
+- feat: navbar con navegación entre categorías y resaltado de la página activa
+- feat: sección Creaciones del index con 3 cards de categoría que enlazan a las páginas nuevas
+- feat: layout compartido (navbar, footer y botones flotantes) renderizado por `static/js/components.js` mediante placeholders `data-inject`, evitando markup duplicado entre páginas
+- feat: páginas de rellenos (`rellenos-dulce-de-leche.html`, `rellenos-mousses.html`, `rellenos-cremas.html`) con los 9 sabores agrupados por familia y enlaces de WhatsApp por relleno
+- feat: sección Rellenos del index rediseñada como 3 cards de categoría (Dulce de leche, Mousses, Cremas) que enlazan a las páginas nuevas; sin cambios en el navbar
+- feat: nuevas tortas Lingote y Margarita en `tortas.html`
+- feat: mini tartas Key Lime, Toffi, Oreo y de frutilla en `tartas.html`
+- feat: cards de rellenos con título sobre la foto y blur en la imagen que desaparece al hover
+- feat: en dispositivos táctiles el efecto de las cards de rellenos se reproduce y rota automáticamente card a card (4 s por card, solo mientras estén en viewport, respeta `prefers-reduced-motion`)
+- chore: meta tag de verificación de Google Search Console y eliminación de `google20fb76b8fbb30988.html`
+
+### Changed
+
+- refactor: `index.html` con placeholders de layout y orden de scripts (`components.js` → Bootstrap → `script.js`)
+- style: estilos para el header de categorías y cards de categoría en `static/css/style.css`
+- style: sección Rellenos del index sin subtítulo descriptivo
+- refactor: cards de rellenos sin caption debajo (título sobre la imagen); la card completa es clicable a WhatsApp con su mensaje precargado
+- docs: README y estructura actualizados para el sitio multi-página
+
 ## [1.1.3] - 2026-09-06
 
 ### Docs

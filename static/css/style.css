@@ -105,6 +105,13 @@ a:hover {
     color: var(--ap-text-chocolate) !important;
 }
 
+.nav-link.active {
+    color: var(--ap-accent-rosa) !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--ap-accent-rosa);
+}
+
 /* Puntitos separadores entre nav links (solo desktop) */
 @media (min-width: 992px) {
     .navbar-nav .nav-item {
@@ -394,6 +401,140 @@ a:hover {
     }
 }
 
+/* --- Cards de categorías (index: Tortas, Tartas, Postres) --- */
+.categoria-card {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--ap-placeholder-bg);
+    box-shadow: 0 8px 24px rgba(43, 30, 25, 0.10);
+}
+
+.categoria-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(6px);
+    transform: scale(1.05);
+    transition: filter 0.3s ease;
+}
+
+.categoria-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(250, 247, 242, 0.35);
+}
+
+.categoria-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    text-align: center;
+}
+
+.categoria-nombre {
+    font-family: var(--ap-font-serif);
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    font-weight: 600;
+    color: var(--ap-text-chocolate);
+}
+
+.categoria-flecha {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-top: 0.75rem;
+    border-radius: 50%;
+    color: var(--ap-bg-marfil);
+    background-color: var(--ap-accent-rosa);
+    box-shadow: 0 2px 10px rgba(43, 30, 25, 0.18);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover sutil solo en dispositivos con hover real (desktop) */
+@media (hover: hover) and (pointer: fine) {
+    .categoria-card {
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .categoria-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(43, 30, 25, 0.16);
+    }
+
+    .categoria-card:hover .categoria-img {
+        filter: blur(4px);
+    }
+
+    .categoria-card:hover .categoria-flecha {
+        background-color: var(--ap-text-chocolate);
+        transform: translateX(4px);
+    }
+}
+
+/* --- Páginas de categorías (Tortas, Tartas, Postres) --- */
+.page-header {
+    padding: calc(var(--ap-navbar-height) + 3.5rem) 0 3rem;
+    background-color: var(--ap-bg-crema);
+    text-align: center;
+}
+
+.breadcrumb-link {
+    font-family: var(--ap-font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ap-accent-rosa);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--ap-text-chocolate);
+}
+
+.page-eyebrow {
+    font-family: var(--ap-font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--ap-accent-rosa);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.page-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    color: var(--ap-text-chocolate);
+    margin-bottom: 1rem;
+}
+
+.page-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ap-text-espresso);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.productos-section {
+    padding: 5rem 0 6rem;
+    background-color: var(--ap-bg-marfil);
+}
+
 /* --- Sobre Alma --- */
 #sobre-alma {
     padding: 6rem 0;
@@ -475,6 +616,7 @@ a:hover {
 }
 
 .relleno-card {
+    position: relative;
     max-width: 480px;
     border-radius: 12px;
     background-color: var(--ap-bg-marfil);
@@ -487,7 +629,39 @@ a:hover {
 }
 
 .relleno-media img {
-    transition: transform 0.5s ease;
+    filter: blur(6px);
+    transform: scale(1.05);
+    transition: filter 0.3s ease, transform 0.5s ease;
+}
+
+.relleno-card:hover .relleno-media img,
+.relleno-card.is-revelando .relleno-media img {
+    filter: blur(0);
+    transform: scale(1.03);
+}
+
+.relleno-titulo {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 1rem;
+    text-align: center;
+    transition: top 0.3s ease, transform 0.3s ease;
+}
+
+.relleno-card:hover .relleno-titulo,
+.relleno-card.is-revelando .relleno-titulo {
+    top: 1.25rem;
+    transform: translateY(0);
+}
+
+.relleno-name {
+    font-family: var(--ap-font-serif);
+    font-size: 1.15rem;
+    color: var(--ap-text-chocolate);
+    text-shadow: 0 1px 2px rgba(250, 247, 242, 0.45);
 }
 
 /* Hover sutil solo en dispositivos con hover real (desktop) */
@@ -497,37 +671,9 @@ a:hover {
     }
 
     .relleno-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 30px rgba(43, 30, 25, 0.16);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(43, 30, 25, 0.13);
     }
-
-    .relleno-card:hover .relleno-media img {
-        transform: scale(1.03);
-    }
-
-    .relleno-caption {
-        transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .relleno-caption:hover {
-        border-color: var(--ap-accent-rosa);
-        box-shadow: 0 8px 18px rgba(43, 30, 25, 0.10);
-    }
-}
-
-.relleno-caption {
-    max-width: 480px;
-    margin: 1rem auto 0;
-    background-color: rgba(250, 247, 242, 0.92);
-    border: 1px solid var(--ap-placeholder-border);
-    border-radius: 8px;
-    padding: 0.55rem 1rem;
-}
-
-.relleno-name {
-    font-family: var(--ap-font-serif);
-    font-size: 1.05rem;
-    color: var(--ap-text-chocolate);
 }
 
 /* --- Cómo hacer tu pedido --- */
@@ -969,5 +1115,25 @@ a:hover {
     .hero-text,
     .hero-cta {
         animation: none;
+    }
+}
+
+/* Responsive adicional para páginas de categorías */
+@media (max-width: 575.98px) {
+    .page-header {
+        padding: calc(var(--ap-navbar-height) + 2rem) 0 2.25rem;
+    }
+
+    .page-title {
+        font-size: 1.9rem;
+    }
+
+    .page-sub {
+        font-size: 0.95rem;
+        padding: 0 0.5rem;
+    }
+
+    .productos-section {
+        padding: 3.5rem 0;
     }
 }

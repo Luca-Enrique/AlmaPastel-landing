@@ -126,6 +126,67 @@ var WHATSAPP_PHONE = '+5493436467940';
     update();
 })();
 
+// Rotación automática de las cards de rellenos en dispositivos táctiles
+(function initRellenoAutoRevelar() {
+    var cards = document.querySelectorAll('.rellenos-grid .relleno-card');
+    if (!cards.length) return;
+
+    if (window.matchMedia && !window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ACTIVO_MS = 4000;
+    var idx = -1;
+    var timer = null;
+    var corriendo = false;
+
+    function limpiar() {
+        if (idx >= 0) cards[idx].classList.remove('is-revelando');
+        idx = -1;
+        timer = null;
+    }
+
+    function paso() {
+        if (idx >= 0) cards[idx].classList.remove('is-revelando');
+        idx = (idx + 1) % cards.length;
+        cards[idx].classList.add('is-revelando');
+        timer = setTimeout(paso, ACTIVO_MS);
+    }
+
+    function iniciar() {
+        if (corriendo) return;
+        corriendo = true;
+        paso();
+    }
+
+    function detener() {
+        if (!corriendo) return;
+        corriendo = false;
+        clearTimeout(timer);
+        limpiar();
+    }
+
+    var grid = document.querySelector('.rellenos-grid');
+    if (!grid) return;
+
+    if (!('IntersectionObserver' in window)) {
+        iniciar();
+        return;
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                iniciar();
+            } else {
+                detener();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    observer.observe(grid);
+})();
+
 // Reveal on scroll: agrega .is-visible cuando el elemento entra en viewport
 (function initScrollReveal() {
     var items = document.querySelectorAll('.reveal');

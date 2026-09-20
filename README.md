@@ -1,6 +1,8 @@
 # Alma Pastel
 
-Landing page estática para una pastelería artesanal. Presenta las creaciones de la marca y dirige a los visitantes hacia WhatsApp para realizar consultas o pedidos.
+Landing page estática para una pastelería artesanal. Presenta las categorías de la marca y dirige a los visitantes hacia WhatsApp para realizar consultas o pedidos.
+
+El sitio tiene 7 páginas: el `index` con las secciones de la marca, las **páginas de categorías** (Tortas, Tartas y Postres) y las **páginas de rellenos** (Dulce de leche, Mousses y Cremas), donde se listan los productos con sus fotos.
 
 La página está publicada en [alma-pastel](https://alma-pastel.vercel.app)
 
@@ -19,21 +21,33 @@ Es un proyecto frontend liviano: **no tiene backend ni base de datos**.
 
 ```
 .
-├── index.html
+├── index.html              # Landing: hero, Sobre Alma, Creaciones (cards de categorías), Rellenos, etc.
+├── tortas.html              # Página de categoría: tortas
+├── tartas.html              # Página de categoría: tartas
+├── postres.html             # Página de categoría: postres
+├── rellenos-dulce-de-leche.html  # Página de rellenos: familia dulce de leche
+├── rellenos-mousses.html         # Página de rellenos: familia mousses
+├── rellenos-cremas.html          # Página de rellenos: familia cremas
 ├── static/
 │   ├── css/
 │   │   └── style.css
 │   ├── js/
+│   │   ├── components.js    # Layout compartido: navbar, footer y botones flotantes
 │   │   └── script.js
 │   └── img/
 └── .gitignore
 ```
 
-- **`index.html`** — Markup de toda la landing: navbar, hero, Sobre Alma, Creaciones, Cómo pedir, Instagram, CTA final, footer y botones flotantes. Es donde se editan los textos y productos.
-- **`static/css/style.css`** — Estilos propios del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Se combinan con las utilidades de Bootstrap (`text-center`, `d-flex`, `mx-auto`, etc.) para gran parte del layout. Incluye el navbar, la imagen de fondo del hero con parallax y los botones flotantes.
-- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes, el parallax del hero y las animaciones reveal-on-scroll (`initScrollReveal`).
+- **`index.html`** — Markup de la landing: navbar, hero, Sobre Alma, Creaciones (3 cards de categoría que enlazan a las páginas), Cómo pedir, Instagram, CTA final y footer. Es donde se editan los textos y productos de la home.
+- **`tortas.html` / `tartas.html` / `postres.html`** — Páginas de categoría: header de la categoría (con enlace "Volver a Inicio") y el grid de productos con su foto, descripción y botón de WhatsApp por producto.
+- **`rellenos-dulce-de-leche.html` / `rellenos-mousses.html` / `rellenos-cremas.html`** — Páginas de rellenos: cada familia lista sus sabores con cards clicables a WhatsApp. Las cards muestran el título sobre la foto con un blur que desaparece al hover (desktop); en dispositivos táctiles el efecto se reproduce automáticamente rotando de card en card.
+- **`static/css/style.css`** — Estilos propios del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Se combinan con las utilidades de Bootstrap (`text-center`, `d-flex`, `mx-auto`, etc.) para gran parte del layout. Es el **único stylesheet compartido** entre los 7 HTML.
+- **`static/js/components.js`** — Renderiza el **layout común** (navbar con enlaces de navegación, footer y botones flotantes) y lo inyecta en los placeholders de cada página (`<header data-inject="navbar">`, `<footer data-inject="footer">`, `<div data-inject="flotantes">`). Así el navbar y el footer se mantienen en un solo lugar. La página activa se marca con `active` según `<body data-page="...">`.
+- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes, el parallax del hero, las animaciones reveal-on-scroll (`initScrollReveal`) y la rotación automática de las cards de rellenos en dispositivos táctiles.
 - **`static/img/`** — Imágenes del proyecto en **WebP** (fotos de tortas, tartas, pavlovas, rellenos, hero, favicon, etc.), con prefijos por uso (`creacion-*`, `relleno-*`, `grilla-*`).
 - **`.gitignore`** — Excluye archivos del sistema (`Thumbs.db`, `.DS_Store`).
+
+> El navbar, el footer y los botones flotantes se inyectan por JavaScript (`components.js`). El contenido principal (hero, productos, rellenos) queda estático en cada HTML para no afectar SEO ni analítica.
 
 ## Configuración de WhatsApp
 
@@ -112,7 +126,10 @@ Se publica en **Vercel** conectado al repositorio de GitHub.
 
 El contenido es editable directamente:
 
-- **Textos y productos** → se modifican en `index.html` (títulos, descripciones, botones, mensajes de WhatsApp, etc.).
+- **Productos de la home** → se modifican en `index.html` (cards de categorías, textos, botones, mensajes de WhatsApp, etc.).
+- **Productos de cada categoría** → se modifican en `tortas.html`, `tartas.html` y `postres.html` (título, descripción y `data-mensaje` de cada card).
+- **Rellenos** → se modifican en `rellenos-dulce-de-leche.html`, `rellenos-mousses.html` y `rellenos-cremas.html` (imagen, título y `data-mensaje` de cada card).
+- **Navbar y footer** → se editan en `static/js/components.js` (única fuente de verdad del layout común).
 - **Imágenes** → se reemplazan o agregan en `static/img/` (WebP, con prefijos `creacion-*`, `relleno-*`, `grilla-*`).
 
 Algunas secciones contienen textos provisorios señalados con comentarios HTML, listos para reemplazar por contenido final.
