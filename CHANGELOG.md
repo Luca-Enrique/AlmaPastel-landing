@@ -4,6 +4,18 @@ Todas las modificaciones notables de este proyecto se documentan en este archivo
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), y este proyecto se adhiere a [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/).
 
+## [1.2.1] - 2026-09-20
+
+### Added
+
+- feat: navbar contextual según la página — index (Alma Pastel / Creaciones / Rellenos), categorías (Alma Pastel / Tortas / Tartas / Postres) y rellenos (Alma Pastel / Dulce de leche / Mousses / Cremas), definido por `NAV_LINKS_INDEX`, `NAV_LINKS_CREACIONES` y `NAV_LINKS_RELLENOS` en `components.js`
+- feat: "Alma Pastel" enlaza a `index.html#creaciones` en las páginas de categorías y a `index.html#rellenos` en las de rellenos; en el index scrollea a la sección Sobre Alma
+- feat: nuevos rellenos Dulce de leche con nuez y Crema chantillí; Chocotorta pasa a la familia Cremas, con grillas a 2 cards por fila en móvil
+
+### Changed
+
+- style: breadcrumb de las páginas de categorías ahora dice "← Volver a Creaciones" y enlaza a `index.html#creaciones`
+
 ## [1.2.0] - 2026-09-20
 
 ### Added
