@@ -7,13 +7,35 @@
 (function initComponents() {
     var currentPage = document.body.getAttribute('data-page') || 'index';
 
-    var NAV_LINKS = [
+    var NAV_LINKS_INDEX = [
         { label: 'Alma Pastel', page: 'index', anchor: 'sobre-alma' },
-        { label: 'Tortas', page: 'tortas' },
-        { label: 'Tartas', page: 'tartas' },
-        { label: 'Postres', page: 'postres' },
+        { label: 'Creaciones', page: 'index', anchor: 'creaciones' },
         { label: 'Rellenos', page: 'index', anchor: 'rellenos' }
     ];
+
+    var NAV_LINKS_CREACIONES = [
+        { label: 'Alma Pastel', page: 'index', anchor: 'creaciones' },
+        { label: 'Tortas', page: 'tortas' },
+        { label: 'Tartas', page: 'tartas' },
+        { label: 'Postres', page: 'postres' }
+    ];
+
+    var NAV_LINKS_RELLENOS = [
+        { label: 'Alma Pastel', page: 'index', anchor: 'rellenos' },
+        { label: 'Dulce de leche', page: 'rellenos-dulce-de-leche' },
+        { label: 'Mousses', page: 'rellenos-mousses' },
+        { label: 'Cremas', page: 'rellenos-cremas' }
+    ];
+
+    function navLinksDe() {
+        if (currentPage === 'tortas' || currentPage === 'tartas' || currentPage === 'postres') {
+            return NAV_LINKS_CREACIONES;
+        }
+        if (currentPage === 'rellenos-dulce-de-leche' || currentPage === 'rellenos-mousses' || currentPage === 'rellenos-cremas') {
+            return NAV_LINKS_RELLENOS;
+        }
+        return NAV_LINKS_INDEX;
+    }
 
     var WHATSAPP_MENSAJE_GENERAL = 'Hola! Quiero realizar un pedido personalizado.';
 
@@ -34,8 +56,9 @@
     }
 
     function navLinksHtml() {
+        var links = navLinksDe();
         var html = '';
-        NAV_LINKS.forEach(function(link) {
+        links.forEach(function(link) {
             var cls = 'nav-link' + (isActive(link) ? ' active' : '');
             html += '<li class="nav-item"><a class="' + cls + '" href="' + linkHref(link) + '">' + link.label + '</a></li>';
         });
