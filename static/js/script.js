@@ -126,7 +126,7 @@ var WHATSAPP_PHONE = '+5493436467940';
     update();
 })();
 
-// Rotación automática de las cards de rellenos en dispositivos táctiles
+// Rotación automática y preview al tocar (dispositivos táctiles)
 (function initRellenoAutoRevelar() {
     var cards = document.querySelectorAll('.rellenos-grid .relleno-card');
     if (!cards.length) return;
@@ -136,20 +136,26 @@ var WHATSAPP_PHONE = '+5493436467940';
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var ACTIVO_MS = 4000;
+    var PREVIEW_MS = 8000;
     var idx = -1;
     var timer = null;
     var corriendo = false;
 
-    function limpiar() {
-        if (idx >= 0) cards[idx].classList.remove('is-revelando');
-        idx = -1;
-        timer = null;
+    var manualTimer = null;
+    var manualCard = null;
+
+    function activar(card) {
+        card.classList.add('is-revelando');
+    }
+
+    function desactivar(card) {
+        card.classList.remove('is-revelando');
     }
 
     function paso() {
-        if (idx >= 0) cards[idx].classList.remove('is-revelando');
+        if (idx >= 0) desactivar(cards[idx]);
         idx = (idx + 1) % cards.length;
-        cards[idx].classList.add('is-revelando');
+        activar(cards[idx]);
         timer = setTimeout(paso, ACTIVO_MS);
     }
 
@@ -160,11 +166,56 @@ var WHATSAPP_PHONE = '+5493436467940';
     }
 
     function detener() {
-        if (!corriendo) return;
-        corriendo = false;
-        clearTimeout(timer);
-        limpiar();
+        if (corriendo) {
+            clearTimeout(timer);
+            corriendo = false;
+        }
+        if (idx >= 0) desactivar(cards[idx]);
+        idx = -1;
     }
+
+    function irAlEnlace(card) {
+        window.location.href = card.href;
+    }
+
+    function despejarManual() {
+        if (manualTimer) {
+            clearTimeout(manualTimer);
+            manualTimer = null;
+        }
+        if (manualCard) {
+            desactivar(manualCard);
+            manualCard = null;
+        }
+    }
+
+    cards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Al tocar de nuevo la card en preview, va directo a WhatsApp
+            if (manualTimer && manualCard === card) {
+                despejarManual();
+                irAlEnlace(card);
+                return;
+            }
+
+            // Primer toque: preview de 8 s; si no vuelve a tocar,
+            // vuelve al blur y la rotación continúa con la siguiente card
+            despejarManual();
+            detener();
+            activar(card);
+            manualCard = card;
+
+            var cardIndex = Array.prototype.indexOf.call(cards, card);
+
+            manualTimer = setTimeout(function() {
+                despejarManual();
+                idx = cardIndex;
+                iniciar();
+            }, PREVIEW_MS);
+        });
+    });
 
     var grid = document.querySelector('.rellenos-grid');
     if (!grid) return;
