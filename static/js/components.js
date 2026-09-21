@@ -65,6 +65,32 @@
         return html;
     }
 
+    function catNavHtml() {
+        var list = navLinksDe().slice(1);
+        var idx = -1;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].page === currentPage) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx < 0 || list.length < 2) return '';
+
+        function navBtn(dirs, label, href) {
+            return '<a class="cat-nav-link" href="' + href + '">' + dirs + label + '</a>';
+        }
+
+        var prev = idx > 0 ? navBtn('← ', list[idx - 1].label, list[idx - 1].page + '.html') : '';
+        var next = idx < list.length - 1 ? navBtn('', list[idx + 1].label + ' →', list[idx + 1].page + '.html') : '';
+        if (currentPage === 'postres') {
+            next = navBtn('', 'Rellenos →', 'rellenos-dulce-de-leche.html');
+        }
+        if (currentPage === 'rellenos-dulce-de-leche') {
+            prev = navBtn('← ', 'Creaciones', 'postres.html');
+        }
+        return '<nav class="cat-nav" aria-label="Navegación entre categorías">' + prev + next + '</nav>';
+    }
+
     function navbarHtml() {
         var brandHref = currentPage === 'index' ? '#' : 'index.html';
         return '' +
@@ -111,8 +137,10 @@
     var header = document.querySelector('header[data-inject="navbar"]');
     var footer = document.querySelector('footer[data-inject="footer"]');
     var flotantes = document.querySelector('[data-inject="flotantes"]');
+    var catnav = document.querySelector('[data-inject="catnav"]');
 
     if (header) header.innerHTML = navbarHtml();
     if (footer) footer.innerHTML = footerHtml();
     if (flotantes) flotantes.innerHTML = flotantesHtml();
+    if (catnav) catnav.innerHTML = catNavHtml();
 })();

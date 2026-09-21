@@ -20,6 +20,18 @@ var WHATSAPP_PHONE = '+5493436467940';
     });
 })();
 
+// Poner la imagen de cada relleno como fondo del glasspanel del título,
+// para que el blur del panel se vea sin depender de backdrop-filter.
+(function initRellenoGlasspanel() {
+    document.querySelectorAll('.relleno-card').forEach(function(card) {
+        var img = card.querySelector('.relleno-media img');
+        var name = card.querySelector('.relleno-name');
+        if (img && name) {
+            name.style.setProperty('--relleno-img', 'url("' + img.getAttribute('src') + '")');
+        }
+    });
+})();
+
 
 // Navbar: sombra sutil al hacer scroll
 (function initNavbarScroll() {
@@ -39,6 +51,25 @@ var WHATSAPP_PHONE = '+5493436467940';
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
+})();
+
+// Cerrar el menú hamburguesa al hacer scroll hacia abajo (mobile/tablet)
+(function initNavbarCollapseOnScroll() {
+    var navbarCollapse = document.getElementById('navbarMain');
+    if (!navbarCollapse) return;
+
+    var lastScrollY = window.scrollY;
+
+    function handleScroll() {
+        var y = window.scrollY;
+        if (navbarCollapse.classList.contains('show') && y > lastScrollY) {
+            var bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+            if (bsCollapse) bsCollapse.hide();
+        }
+        lastScrollY = y;
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
 })();
 
 (function initSmoothScroll() {
@@ -184,9 +215,24 @@ var WHATSAPP_PHONE = '+5493436467940';
             manualTimer = null;
         }
         if (manualCard) {
+            ocultarHint(manualCard);
             desactivar(manualCard);
             manualCard = null;
         }
+    }
+
+    function mostrarHint(card) {
+        if (card.querySelector('.relleno-hint')) return;
+        var hint = document.createElement('span');
+        hint.className = 'relleno-hint';
+        hint.setAttribute('aria-hidden', 'true');
+        hint.textContent = 'Tocá de nuevo para pedir';
+        card.appendChild(hint);
+    }
+
+    function ocultarHint(card) {
+        var hint = card.querySelector('.relleno-hint');
+        if (hint) hint.remove();
     }
 
     cards.forEach(function(card) {
@@ -206,6 +252,7 @@ var WHATSAPP_PHONE = '+5493436467940';
             detener();
             activar(card);
             manualCard = card;
+            mostrarHint(card);
 
             var cardIndex = Array.prototype.indexOf.call(cards, card);
 

@@ -4,6 +4,22 @@ Todas las modificaciones notables de este proyecto se documentan en este archivo
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), y este proyecto se adhiere a [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/).
 
+## [1.2.2] - 2026-09-21
+
+### Added
+
+- feat: navegación "anterior y siguiente" entre categorías arriba del footer, con encadenado Postres → Rellenos (Dulce de leche) y Dulce de leche → Creaciones; botón de estilo uniforme (relleno rosa) en todas las resoluciones
+- feat: hint "Tocá de nuevo para pedir" en el preview táctil de las cards de rellenos, haciendo intuitiva la redirección a WhatsApp con el doble toque
+
+### Fixed
+
+- fix: el glasspanel del título de los rellenos ahora muestra su blur (copia borrosa de la foto vía `--relleno-img`); `backdrop-filter` no se veía porque la imagen con `filter` queda aislada del backdrop
+- fix: cards de rellenos ocupando todo el ancho en móvil y tablet (una por fila), con 4 por fila en desktop
+
+### Changed
+
+- style: el menú hamburguesa se cierra al hacer scroll hacia abajo en móviles y tablets
+
 ## [1.2.1] - 2026-09-20
 
 ### Added
