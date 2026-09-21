@@ -101,20 +101,44 @@ var WHATSAPP_PHONE = '+5493436467940';
     var btnFlotante = document.querySelector('.btn-whatsapp-flotante');
     if (!btnTop) return;
 
+    var currentPage = document.body.getAttribute('data-page') || 'index';
+    var sinFlotanteWa = !btnFlotante;
+
     var navbarWa = document.querySelectorAll('#main-header .btn-whatsapp, #main-header .btn-whatsapp-mobile');
 
     var SCROLL_THRESHOLD = 400;
+    var GAP_FOOTER = 16;
 
     function setFloating(show) {
         btnTop.classList.toggle('visible', show);
         if (btnFlotante) btnFlotante.classList.toggle('visible', show);
-        navbarWa.forEach(function(btn) {
-            btn.classList.toggle('navbar-wa-hidden', show);
-        });
+        if (!sinFlotanteWa) {
+            navbarWa.forEach(function(btn) {
+                btn.classList.toggle('navbar-wa-hidden', show);
+            });
+        }
+    }
+
+    function footerTop() {
+        var footer = document.querySelector('footer.site-footer');
+        var esDesktop = window.matchMedia('(min-width: 992px)').matches;
+        if (!footer || (!esDesktop && currentPage !== 'index')) {
+            btnTop.style.bottom = '';
+            if (btnFlotante) btnFlotante.style.bottom = '';
+            return;
+        }
+        btnTop.style.bottom = '';
+        if (btnFlotante) btnFlotante.style.bottom = '';
+        var defBottom = parseFloat(getComputedStyle(btnTop).bottom);
+        if (!isFinite(defBottom) || defBottom <= 0) defBottom = 20;
+        var gap = Math.max(defBottom, (window.innerHeight - footer.getBoundingClientRect().top) + GAP_FOOTER);
+        btnTop.style.bottom = gap + 'px';
+        if (btnFlotante) btnFlotante.style.bottom = gap + 'px';
     }
 
     function handleScroll() {
         setFloating(window.scrollY > SCROLL_THRESHOLD);
+        footerTop();
     }
 
     btnTop.addEventListener('click', function() {
@@ -122,6 +146,7 @@ var WHATSAPP_PHONE = '+5493436467940';
     });
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
     handleScroll();
 })();
 
@@ -232,7 +257,11 @@ var WHATSAPP_PHONE = '+5493436467940';
 
     function ocultarHint(card) {
         var hint = card.querySelector('.relleno-hint');
-        if (hint) hint.remove();
+        if (!hint || hint.classList.contains('is-saliendo')) return;
+        hint.classList.add('is-saliendo');
+        setTimeout(function() {
+            if (hint.parentNode) hint.parentNode.removeChild(hint);
+        }, 200);
     }
 
     cards.forEach(function(card) {

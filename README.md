@@ -22,12 +22,14 @@ Es un proyecto frontend liviano: **no tiene backend ni base de datos**.
 ```
 .
 ├── index.html              # Landing: hero, Sobre Alma, Creaciones (cards de categorías), Rellenos, etc.
-├── tortas.html              # Página de categoría: tortas
-├── tartas.html              # Página de categoría: tartas
-├── postres.html             # Página de categoría: postres
-├── rellenos-dulce-de-leche.html  # Página de rellenos: familia dulce de leche
-├── rellenos-mousses.html         # Página de rellenos: familia mousses
-├── rellenos-cremas.html          # Página de rellenos: familia cremas
+├── creaciones/
+│   ├── tortas.html          # Página de categoría: tortas
+│   ├── tartas.html          # Página de categoría: tartas
+│   └── postres.html         # Página de categoría: postres
+├── rellenos/
+│   ├── dulce-de-leche.html  # Página de rellenos: familia dulce de leche
+│   ├── mousses.html         # Página de rellenos: familia mousses
+│   └── cremas.html          # Página de rellenos: familia cremas
 ├── static/
 │   ├── css/
 │   │   └── style.css
@@ -35,16 +37,19 @@ Es un proyecto frontend liviano: **no tiene backend ni base de datos**.
 │   │   ├── components.js    # Layout compartido: navbar, footer y botones flotantes
 │   │   └── script.js
 │   └── img/
+│       ├── creaciones/      # Fotos de tortas, tartas y postres (creacion-*.webp)
+│       ├── rellenos/        # Fotos de rellenos (relleno-*.webp)
+│       └── generales/       # hero, sobre-alma.jpg, favicon.png y grilla-*.webp
 └── .gitignore
 ```
 
 - **`index.html`** — Markup de la landing: navbar, hero, Sobre Alma, Creaciones (3 cards de categoría que enlazan a las páginas), Cómo pedir, Instagram, CTA final y footer. Es donde se editan los textos y productos de la home.
-- **`tortas.html` / `tartas.html` / `postres.html`** — Páginas de categoría: header de la categoría (con enlace "Volver a Inicio") y el grid de productos con su foto, descripción y botón de WhatsApp por producto.
-- **`rellenos-dulce-de-leche.html` / `rellenos-mousses.html` / `rellenos-cremas.html`** — Páginas de rellenos: cada familia lista sus sabores con cards clicables a WhatsApp. Las cards muestran el título sobre la foto con un blur que desaparece al hover (desktop); en dispositivos táctiles el efecto se reproduce automáticamente rotando de card en card.
+- **`creaciones/tortas.html` / `creaciones/tartas.html` / `creaciones/postres.html`** — Páginas de categoría: header de la categoría (con enlace "Volver a Creaciones" hacia `../index.html#creaciones`) y el grid de productos con su foto, descripción y botón de WhatsApp por producto.
+- **`rellenos/dulce-de-leche.html` / `rellenos/mousses.html` / `rellenos/cremas.html`** — Páginas de rellenos: cada familia lista sus sabores con cards clicables a WhatsApp. Las cards muestran el título sobre la foto con un blur que desaparece al hover (desktop); en dispositivos táctiles el efecto se reproduce automáticamente rotando de card en card y un hint guía el doble toque hacia WhatsApp.
 - **`static/css/style.css`** — Estilos propios del proyecto: variables de paleta, tipografías, layout de secciones y estilos responsive (mobile-first). Se combinan con las utilidades de Bootstrap (`text-center`, `d-flex`, `mx-auto`, etc.) para gran parte del layout. Es el **único stylesheet compartido** entre los 7 HTML.
-- **`static/js/components.js`** — Renderiza el **layout común** (navbar con enlaces de navegación, footer y botones flotantes) y lo inyecta en los placeholders de cada página (`<header data-inject="navbar">`, `<footer data-inject="footer">`, `<div data-inject="flotantes">`). Así el navbar y el footer se mantienen en un solo lugar. La página activa se marca con `active` según `<body data-page="...">`.
-- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes, el parallax del hero, las animaciones reveal-on-scroll (`initScrollReveal`) y la rotación automática de las cards de rellenos en dispositivos táctiles.
-- **`static/img/`** — Imágenes del proyecto en **WebP** (fotos de tortas, tartas, pavlovas, rellenos, hero, favicon, etc.), con prefijos por uso (`creacion-*`, `relleno-*`, `grilla-*`).
+- **`static/js/components.js`** — Renderiza el **layout común** (navbar con enlaces de navegación, footer, botones flotantes y navegación entre categorías) y lo inyecta en los placeholders de cada página. Resuelve las rutas relativas según la carpeta de la página (`pageHref`/`folderDe`). La página activa se marca con `active` según `<body data-page="...">`.
+- **`static/js/script.js`** — JavaScript vanilla. Contiene la configuración de WhatsApp, genera los enlaces `wa.me`, y maneja el scroll del navbar, el scroll suave de anclas, los botones flotantes, el parallax del hero, las animaciones reveal-on-scroll (`initScrollReveal`), la rotación automática de las cards de rellenos en dispositivos táctiles y el glasspanel del título de cada relleno.
+- **`static/img/`** — Imágenes del proyecto en **WebP** (fotos de tortas, tartas, pavlovas, rellenos, hero, favicon, etc.), organizadas por familia: `creaciones/` (`creacion-*`), `rellenos/` (`relleno-*`) y `generales/` (hero, `sobre-alma.jpg`, `favicon.png` y `grilla-*`).
 - **`.gitignore`** — Excluye archivos del sistema (`Thumbs.db`, `.DS_Store`).
 
 > El navbar, el footer y los botones flotantes se inyectan por JavaScript (`components.js`). El contenido principal (hero, productos, rellenos) queda estático en cada HTML para no afectar SEO ni analítica.
@@ -78,9 +83,11 @@ Para cambiar o agregar un mensaje, editar el atributo `data-mensaje` del botón 
 
 ## Imágenes
 
-- Todas las imágenes se colocan en **`static/img/`** en formato **WebP** (`*.webp`), salvo `sobre-alma.jpg` y `favicon.png`.
-- Se referencian desde `index.html` con rutas relativas (`static/img/creacion-vintage.webp`).
-- Los nombres usan prefijos por contexto: `creacion-*` (cards de Creaciones), `relleno-*` (cards de Rellenos), `grilla-*` (grid de Instagram).
+- Todas las imágenes se colocan en **`static/img/`** en formato **WebP** (`*.webp`), salvo `sobre-alma.jpg` y `favicon.png`, organizadas por familia:
+  - `static/img/creaciones/` — fotos de tortas, tartas y postres (`creacion-*`).
+  - `static/img/rellenos/` — fotos de rellenos (`relleno-*`).
+  - `static/img/generales/` — hero, `sobre-alma.jpg`, `favicon.png` y grid de Instagram (`grilla-*`).
+- Se referencian desde `index.html` con rutas relativas (`static/img/creaciones/creacion-vintage.webp`) y desde las páginas de las subcarpetas con `../static/img/...`.
 - Se recomienda mantener las imágenes **optimizadas** (compresión y dimensiones razonables) para no afectar el rendimiento.
 
 ## Desarrollo local
@@ -127,10 +134,10 @@ Se publica en **Vercel** conectado al repositorio de GitHub.
 El contenido es editable directamente:
 
 - **Productos de la home** → se modifican en `index.html` (cards de categorías, textos, botones, mensajes de WhatsApp, etc.).
-- **Productos de cada categoría** → se modifican en `tortas.html`, `tartas.html` y `postres.html` (título, descripción y `data-mensaje` de cada card).
-- **Rellenos** → se modifican en `rellenos-dulce-de-leche.html`, `rellenos-mousses.html` y `rellenos-cremas.html` (imagen, título y `data-mensaje` de cada card).
+- **Productos de cada categoría** → se modifican en `creaciones/tortas.html`, `creaciones/tartas.html` y `creaciones/postres.html` (título, descripción y `data-mensaje` de cada card).
+- **Rellenos** → se modifican en `rellenos/dulce-de-leche.html`, `rellenos/mousses.html` y `rellenos/cremas.html` (imagen, título y `data-mensaje` de cada card).
 - **Navbar y footer** → se editan en `static/js/components.js` (única fuente de verdad del layout común).
-- **Imágenes** → se reemplazan o agregan en `static/img/` (WebP, con prefijos `creacion-*`, `relleno-*`, `grilla-*`).
+- **Imágenes** → se reemplazan o agregan en `static/img/` según la familia: `creaciones/`, `rellenos/` o `generales/` (WebP, con prefijos `creacion-*`, `relleno-*`, `grilla-*`).
 
 Algunas secciones contienen textos provisorios señalados con comentarios HTML, listos para reemplazar por contenido final.
 

@@ -22,16 +22,22 @@
 
     var NAV_LINKS_RELLENOS = [
         { label: 'Alma Pastel', page: 'index', anchor: 'rellenos' },
-        { label: 'Dulce de leche', page: 'rellenos-dulce-de-leche' },
-        { label: 'Mousses', page: 'rellenos-mousses' },
-        { label: 'Cremas', page: 'rellenos-cremas' }
+        { label: 'Dulce de leche', page: 'dulce-de-leche' },
+        { label: 'Mousses', page: 'mousses' },
+        { label: 'Cremas', page: 'cremas' }
     ];
+
+    function folderDe(page) {
+        if (page === 'tortas' || page === 'tartas' || page === 'postres') return 'creaciones';
+        if (page === 'dulce-de-leche' || page === 'mousses' || page === 'cremas') return 'rellenos';
+        return '';
+    }
 
     function navLinksDe() {
         if (currentPage === 'tortas' || currentPage === 'tartas' || currentPage === 'postres') {
             return NAV_LINKS_CREACIONES;
         }
-        if (currentPage === 'rellenos-dulce-de-leche' || currentPage === 'rellenos-mousses' || currentPage === 'rellenos-cremas') {
+        if (currentPage === 'dulce-de-leche' || currentPage === 'mousses' || currentPage === 'cremas') {
             return NAV_LINKS_RELLENOS;
         }
         return NAV_LINKS_INDEX;
@@ -43,12 +49,23 @@
 
     var ICON_ARROW_UP = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>';
 
-    function linkHref(link) {
-        if (link.page === currentPage) {
-            return link.anchor ? '#' + link.anchor : '#';
+    function pageHref(page, anchor) {
+        if (page === currentPage) {
+            return anchor ? '#' + anchor : '#';
         }
-        var target = link.page === 'index' ? 'index.html' : link.page + '.html';
-        return target + (link.anchor ? '#' + link.anchor : '');
+        var curF = folderDe(currentPage);
+        var target;
+        if (page === 'index') {
+            target = curF ? '../index.html' : 'index.html';
+        } else {
+            var tgtF = folderDe(page);
+            target = curF === tgtF ? page + '.html' : '../' + tgtF + '/' + page + '.html';
+        }
+        return target + (anchor ? '#' + anchor : '');
+    }
+
+    function linkHref(link) {
+        return pageHref(link.page, link.anchor);
     }
 
     function isActive(link) {
@@ -80,19 +97,19 @@
             return '<a class="cat-nav-link" href="' + href + '">' + dirs + label + '</a>';
         }
 
-        var prev = idx > 0 ? navBtn('← ', list[idx - 1].label, list[idx - 1].page + '.html') : '';
-        var next = idx < list.length - 1 ? navBtn('', list[idx + 1].label + ' →', list[idx + 1].page + '.html') : '';
+        var prev = idx > 0 ? navBtn('← ', list[idx - 1].label, pageHref(list[idx - 1].page)) : '';
+        var next = idx < list.length - 1 ? navBtn('', list[idx + 1].label + ' →', pageHref(list[idx + 1].page)) : '';
         if (currentPage === 'postres') {
-            next = navBtn('', 'Rellenos →', 'rellenos-dulce-de-leche.html');
+            next = navBtn('', 'Rellenos →', pageHref('dulce-de-leche'));
         }
-        if (currentPage === 'rellenos-dulce-de-leche') {
-            prev = navBtn('← ', 'Creaciones', 'postres.html');
+        if (currentPage === 'dulce-de-leche') {
+            prev = navBtn('← ', 'Creaciones', pageHref('postres'));
         }
         return '<nav class="cat-nav" aria-label="Navegación entre categorías">' + prev + next + '</nav>';
     }
 
     function navbarHtml() {
-        var brandHref = currentPage === 'index' ? '#' : 'index.html';
+        var brandHref = currentPage === 'index' ? '#' : pageHref('index');
         return '' +
             '<nav class="navbar navbar-expand-lg fixed-top">' +
                 '<div class="container">' +
@@ -127,10 +144,13 @@
     }
 
     function flotantesHtml() {
+        var conWhatsApp = folderDe(currentPage) === '';
         return '' +
-            '<a href="https://wa.me/" class="btn-whatsapp-flotante d-flex align-items-center gap-2 text-decoration-none rounded-pill" aria-label="Consultar disponibilidad por WhatsApp">' +
-                ICON_WHATSAPP + '<span>Consultar disponibilidad</span>' +
-            '</a>' +
+            (conWhatsApp
+                ? '<a href="https://wa.me/" class="btn-whatsapp-flotante d-flex align-items-center gap-2 text-decoration-none rounded-pill" aria-label="Consultar disponibilidad por WhatsApp">' +
+                    ICON_WHATSAPP + '<span>Consultar disponibilidad</span>' +
+                '</a>'
+                : '') +
             '<button type="button" id="btn-volver-arriba" class="btn-top" aria-label="Volver arriba">' + ICON_ARROW_UP + '</button>';
     }
 

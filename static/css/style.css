@@ -723,6 +723,29 @@ a:hover {
     box-shadow: 0 2px 8px rgba(43, 30, 25, 0.18);
 }
 
+.relleno-hint.is-saliendo {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .relleno-hint {
+        animation: relleno-hint-in 0.25s ease-out;
+    }
+}
+
+@keyframes relleno-hint-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 6px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
 /* Hover sutil solo en dispositivos con hover real (desktop) */
 @media (hover: hover) and (pointer: fine) {
     .relleno-card {

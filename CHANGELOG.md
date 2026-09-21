@@ -4,6 +4,23 @@ Todas las modificaciones notables de este proyecto se documentan en este archivo
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/), y este proyecto se adhiere a [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/).
 
+## [1.3.1] - 2026-09-21
+
+### Added
+
+- feat: los botones flotantes (WhatsApp y volver arriba) se detienen sobre el borde del footer con 16px de separación — en index en tablets y móviles, y en desktop en todas las páginas
+- feat: en creaciones y rellenos se elimina el botón flotante "Consultar disponibilidad" y el WhatsApp del navbar queda siempre activo
+
+### Fixed
+
+- fix: transición de entrada y salida suaves en el hint "Tocá de nuevo para pedir" de las cards de rellenos (la entrada respeta `prefers-reduced-motion`)
+
+## [1.3.0] - 2026-09-21
+
+### Changed
+
+- chore: reestructuración del proyecto en carpetas: páginas de categorías en `creaciones/` (tortas, tartas, postres) y de rellenos en `rellenos/` (dulce de leche, mousses, cremas), con nombres de archivo más cortos; imágenes organizadas en `static/img/{creaciones,rellenos,generales}`; rutas relativas por profundidad y navegación consciente de carpeta (`folderDe`/`pageHref`) en `components.js`
+
 ## [1.2.2] - 2026-09-21
 
 ### Added
